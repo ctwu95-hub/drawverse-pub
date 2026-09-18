@@ -29,7 +29,7 @@
 <body><div class="wrap">
 
 <h1>Drawverse 隱私政策</h1>
-<p class="meta">最後更新：2026 年 9 月 16 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
+<p class="meta">最後更新：2026 年 9 月 19 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
 
 <div class="card">
   <strong>一句話版本：</strong>Drawverse 不需要你註冊、不要你的姓名或 email、沒有廣告、不做追蹤、不賣資料。
@@ -46,6 +46,9 @@
 <ul>
   <li><strong>暱稱</strong>：你自己取的顯示名稱，會出現在計分板與房間名單。請不要使用真實姓名或個資。</li>
   <li><strong>畫作與猜題文字</strong>：你在遊戲中畫的筆畫、以及猜題輸入的文字。發布到「塗鴉牆／每日挑戰」的作品其他玩家看得到。</li>
+  <li><strong>你出的題目</strong>：在「你畫我猜」的大廳可以自己出一題。開始前其他人看不到題目內容（只看得到你已經出好了）；
+      那一回合開始後，題目會像一般題目一樣顯示給該猜的人，揭曉時也會公開「這題是誰出的」。</li>
+  <li><strong>表情反應</strong>：觀戰時按的表情會即時傳給正在畫的人，不會存下來。</li>
   <li><strong>自訂大頭貼（選填）</strong>：你可以從相簿挑一張照片當頭像。我們只會取得<em>你選的那一張</em>——App 不會讀取你的整個相簿。</li>
 </ul>
 
@@ -74,8 +77,10 @@
 
 <h2>三、附近連線與 iCloud</h2>
 <ul>
-  <li><strong>附近連線（本地網路）</strong>：「鄰近模式」用 Apple 的 MultipeerConnectivity 直接和同一個 Wi-Fi／藍牙範圍內的裝置連線，
-      資料只在你們的裝置之間傳遞，不會經過我們的伺服器。系統會詢問你的「本地網路」權限。</li>
+  <li><strong>附近連線（本地網路）</strong>：兩種情況會用到 Apple 的 MultipeerConnectivity，直接和同一個 Wi-Fi／藍牙範圍內的裝置連線：
+      <strong>鄰近模式</strong>整場都不經過我們的伺服器；<strong>線上房間</strong>則是在大家剛好在同一個地方時，
+      把「正在畫的即時筆畫」改走本地傳送（比較順、也比較省流量），其餘的遊戲資料照舊走伺服器。
+      兩種都只在你們的裝置之間傳遞。系統會詢問你的「本地網路」權限。</li>
   <li><strong>iCloud（選用）</strong>：開啟後，你的作品會備份到<strong>你自己的</strong> iCloud 帳號，由 Apple 保管，我們無法存取。</li>
 </ul>
 
@@ -106,7 +111,7 @@
 <div class="card">
   在 App 裡打開 <strong>設定 → 刪除我的資料</strong>，即可永久刪除：
   <ul>
-    <li>這台裝置上的所有本機紀錄（作品、日記、進度、封鎖名單、你自己畫的簽名）；</li>
+    <li>這台裝置上的所有本機紀錄（作品、進度、封鎖名單、你自己畫的簽名）；</li>
     <li>雲端的個人檔案、每日作品、評分與反應、大頭貼照片；</li>
     <li>以及那個匿名帳號本身。</li>
   </ul>
@@ -133,7 +138,7 @@
 <!-- ===================== ENGLISH ===================== -->
 <div class="en">
 <h1>Drawverse Privacy Policy</h1>
-<p class="meta">Last updated: 16 September 2026 · Applies to the iOS app “Drawverse”</p>
+<p class="meta">Last updated: 19 September 2026 · Applies to the iOS app “Drawverse”</p>
 
 <div class="card">
   <strong>In one sentence:</strong> Drawverse requires no sign-up, asks for no name or email, shows no ads,
@@ -152,6 +157,9 @@ is required. It is a random identifier used to remember your artwork, score, and
   <li><strong>Nickname</strong> — a display name you choose, shown on scoreboards and in rooms. Please do not use your real name.</li>
   <li><strong>Drawings and guesses</strong> — the strokes you draw and the text you type when guessing. Artwork published to the
       community wall or daily challenge is visible to other players.</li>
+  <li><strong>Topics you write</strong> — in a guessing-game lobby you may submit one topic. Others cannot see its text beforehand
+      (only that you have submitted one); once that round starts it is shown like any other topic, and the author is named at the reveal.</li>
+  <li><strong>Reactions</strong> — emoji you tap while spectating are relayed live to the player drawing and are not stored.</li>
   <li><strong>Custom avatar (optional)</strong> — you may pick one photo from your library. We receive
       <em>only the photo you select</em>; the app never gains access to your whole photo library.</li>
 </ul>
@@ -181,8 +189,9 @@ is required. It is a random identifier used to remember your artwork, score, and
 
 <h2>3. Nearby play and iCloud</h2>
 <ul>
-  <li><strong>Nearby play (local network)</strong> — uses Apple’s MultipeerConnectivity to connect directly to devices on the same
-      Wi-Fi/Bluetooth range. That data travels between your devices and does not pass through our servers.
+  <li><strong>Local network</strong> — Apple’s MultipeerConnectivity is used in two cases. <strong>Nearby play</strong> never touches our
+      servers at all. <strong>Online rooms</strong> send live in-progress strokes peer-to-peer when everyone happens to be in the same place
+      (lower latency, less data); everything else still goes through the server. In both cases that traffic stays between your devices.
       iOS will ask for Local Network permission.</li>
   <li><strong>iCloud (optional)</strong> — when enabled, your artwork is backed up to <strong>your own</strong> iCloud account,
       held by Apple. We cannot access it.</li>
