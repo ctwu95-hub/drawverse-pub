@@ -29,7 +29,7 @@
 <body><div class="wrap">
 
 <h1>Drawverse 隱私政策</h1>
-<p class="meta">最後更新：2026 年 9 月 19 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
+<p class="meta">最後更新：2026 年 9 月 22 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
 
 <div class="card">
   <strong>一句話版本：</strong>Drawverse 不需要你註冊、不要你的姓名或 email、沒有廣告、不做追蹤、不賣資料。
@@ -85,8 +85,11 @@
 </ul>
 
 <h2>四、AI 怎麼處理你的畫</h2>
-<p>為了幫你的畫評分、辨識「餵怪獸」裡你畫了什麼、比對 COPYCAT 畫得像不像、產生遊戲題目，以及產生每日挑戰的示範作品，本 App 會把
+<p>為了幫你的畫評分、辨識「餵怪獸」與「畫畫 PK」裡你畫了什麼、比對 COPYCAT 畫得像不像、產生遊戲題目，以及產生每日挑戰的示範作品，本 App 會把
 <strong>那張畫的圖檔與當天的題目文字</strong>傳送給 Google 的生成式 AI 服務（Gemini API）處理。</p>
+<p>其中「<strong>畫畫 PK</strong>」比較特別：比賽進行中，你畫到一半的圖會<strong>持續</strong>送出去辨識
+（放開筆之後約 0.4 秒送一次、最快每 2.5 秒一次），這樣才知道 AI 什麼時候認得出你畫的東西、並以此計時。
+送的一樣只有圖與題目，畫完就不再送。</p>
 <ul>
   <li>傳過去的<strong>只有圖與題目</strong>。不會傳送你的暱稱、帳號編號或任何能辨識你的資料。</li>
   <li>用途只有評分、辨識與產生示範圖，不會用來投放廣告或個人化行銷。</li>
@@ -138,7 +141,7 @@
 <!-- ===================== ENGLISH ===================== -->
 <div class="en">
 <h1>Drawverse Privacy Policy</h1>
-<p class="meta">Last updated: 19 September 2026 · Applies to the iOS app “Drawverse”</p>
+<p class="meta">Last updated: 22 September 2026 · Applies to the iOS app “Drawverse”</p>
 
 <div class="card">
   <strong>In one sentence:</strong> Drawverse requires no sign-up, asks for no name or email, shows no ads,
@@ -198,9 +201,12 @@ is required. It is a random identifier used to remember your artwork, score, and
 </ul>
 
 <h2>4. How AI processes your drawings</h2>
-<p>To score your drawings, to recognise what you drew in “Feed the Monster”, to judge how closely your COPYCAT
+<p>To score your drawings, to recognise what you drew in “Feed the Monster” and “Drawing PK”, to judge how closely your COPYCAT
 attempt matches, to generate game prompts, and to produce the daily example artwork, the app sends <strong>the image of that drawing and the prompt word for the day</strong> to Google’s
 generative AI service (the Gemini API).</p>
+<p><strong>Drawing PK</strong> works differently in one respect: while a match is running your <em>in-progress</em> drawing is sent
+<strong>repeatedly</strong> — roughly 0.4 seconds after you lift the pen, and at most once every 2.5 seconds — because the game is timed
+by how soon the AI can recognise what you are drawing. It still sends only the image and the prompt, and stops when the round ends.</p>
 <ul>
   <li>Only <strong>the image and the prompt</strong> are sent. Your nickname, account ID and anything else that
       could identify you are not.</li>
