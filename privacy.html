@@ -29,7 +29,7 @@
 <body><div class="wrap">
 
 <h1>Drawverse 隱私政策</h1>
-<p class="meta">最後更新：2026 年 9 月 23 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
+<p class="meta">最後更新：2026 年 10 月 2 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
 
 <div class="card">
   <strong>一句話版本：</strong>Drawverse 不需要你註冊、不要你的姓名或 email、沒有廣告、不做追蹤、不賣資料。
@@ -45,7 +45,9 @@
 <h3>2. 你主動提供的內容</h3>
 <ul>
   <li><strong>暱稱</strong>：你自己取的顯示名稱，會出現在計分板與房間名單。請不要使用真實姓名或個資。</li>
-  <li><strong>畫作與猜題文字</strong>：你在遊戲中畫的筆畫、以及猜題輸入的文字。發布到「塗鴉牆／每日挑戰」的作品其他玩家看得到。</li>
+  <li><strong>畫作與猜題文字</strong>：你在遊戲中畫的筆畫、以及猜題輸入的文字。發布到「塗鴉牆」的作品其他玩家看得到。
+      在「你畫我猜」與「畫畫PK」的對局進行中，你<strong>畫到一半</strong>的畫面也會即時傳給同房的人看
+      （「畫畫PK」是縮圖，且進度超前你的人會被打馬賽克）；對局結束後這些即時畫面就不再保留。</li>
   <li><strong>你出的題目</strong>：在「你畫我猜」的大廳可以自己出一題。開始前其他人看不到題目內容（只看得到你已經出好了）；
       那一回合開始後，題目會像一般題目一樣顯示給該猜的人，揭曉時也會公開「這題是誰出的」。</li>
   <li><strong>表情反應</strong>：觀戰時按的表情會即時傳給正在畫的人，不會存下來。</li>
@@ -54,10 +56,10 @@
 
 <h3>3. 遊戲與使用紀錄</h3>
 <ul>
-  <li>等級、經驗值、完成的每日挑戰、對局結果等遊戲進度。</li>
+  <li>等級、經驗值、對局結果等遊戲進度。</li>
   <li><strong>每日場次計數</strong>：免費玩家的「你畫我猜／畫畫PK」每天有場次上限，所以我們會記下
       「你的匿名帳號編號、日期、模式、今天玩了幾場」。記在伺服器是為了讓重裝 App 不會直接把次數歸零。
-      只有這四個欄位，不含你畫了什麼。買了 Pro 就不受上限限制，也不會再送出這筆計數。</li>
+      只有這四個欄位，不含你畫了什麼。訂閱 Drawverse Plus 就不受上限限制，也不會再送出這筆計數。</li>
   <li>基本的使用事件（例如「開啟了哪個模式」），用來了解哪些玩法受歡迎、把遊戲做得更好。</li>
 </ul>
 
@@ -72,7 +74,7 @@
 <h2>二、我們為什麼需要這些</h2>
 <ul>
   <li><strong>讓遊戲能玩</strong>：保存作品、計分、配對房間、接力輪次。</li>
-  <li><strong>社群功能</strong>：把作品顯示在塗鴉牆與每日挑戰上給其他玩家看。</li>
+  <li><strong>社群功能</strong>：把作品顯示在塗鴉牆上給其他玩家看。</li>
   <li><strong>安全與審核</strong>：處理檢舉、移除不當內容、停用濫用帳號。</li>
   <li><strong>改善遊戲</strong>：用彙總後的使用統計決定要加強哪些玩法。</li>
 </ul>
@@ -88,20 +90,19 @@
 </ul>
 
 <h2>四、AI 怎麼處理你的畫</h2>
-<p>為了幫你的畫評分、辨識「餵怪獸」與「畫畫 PK」裡你畫了什麼、比對 COPYCAT 畫得像不像、產生遊戲題目，以及產生每日挑戰的示範作品，本 App 會把
-<strong>那張畫的圖檔與當天的題目文字</strong>傳送給 Google 的生成式 AI 服務（Gemini API）處理。</p>
+<p>為了辨識「餵怪獸」與「畫畫 PK」裡你畫了什麼、比對 COPYCAT 畫得像不像，以及產生遊戲題目，本 App 會把
+<strong>那張畫的圖檔與那一題的題目文字</strong>傳送給 Google 的生成式 AI 服務（Gemini API）處理。</p>
 <p>其中「<strong>畫畫 PK</strong>」比較特別：比賽進行中，你畫到一半的圖會<strong>持續</strong>送出去辨識
-（放開筆之後約 0.4 秒送一次、最快每 2.5 秒一次），這樣才知道 AI 什麼時候認得出你畫的東西、並以此計時。
-送的一樣只有圖與題目，畫完就不再送。</p>
+（放開筆之後約 0.35 秒送一次，連續畫不停時至少每 1.5 秒一次，兩次之間最短間隔 1 秒），
+這樣才知道 AI 什麼時候認得出你畫的東西、並以此決定何時換下一題。
+送的一樣只有圖與題目，那一題結束就不再送。</p>
 <ul>
   <li>傳過去的<strong>只有圖與題目</strong>。不會傳送你的暱稱、帳號編號或任何能辨識你的資料。</li>
-  <li>用途只有評分、辨識與產生示範圖，不會用來投放廣告或個人化行銷。</li>
+  <li>用途只有辨識與出題，不會用來投放廣告或個人化行銷。</li>
   <li>該服務對資料的處理另適用
       <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google 的隱私政策</a>與其 API 條款。</li>
   <li><strong>鄰近模式完全不使用 AI</strong>，資料不離開你們的裝置。</li>
 </ul>
-<p>塗鴉牆上標著「AI 生成」的圖，是 AI 依當天題目畫的示範作品，不是任何玩家的作品。</p>
-
 <h2>五、訂閱（Drawverse Plus）</h2>
 <p>Drawverse Plus 是每月自動續訂的 App 內訂閱（每月 NT$90）。
 <strong>付款完全由 Apple 處理</strong>——我們看不到、也不會保存你的信用卡、Apple ID 或任何付款資料。
@@ -120,7 +121,7 @@
   在 App 裡打開 <strong>設定 → 刪除我的資料</strong>，即可永久刪除：
   <ul>
     <li>這台裝置上的所有本機紀錄（作品、進度、封鎖名單、你自己畫的簽名）；</li>
-    <li>雲端的個人檔案、每日作品、評分與反應、大頭貼照片；</li>
+    <li>雲端的個人檔案、發布的作品、反應與大頭貼照片；</li>
     <li>以及那個匿名帳號本身。</li>
   </ul>
   這個動作無法復原。你也可以寄信到下方信箱要求我們協助刪除。
@@ -132,7 +133,7 @@
 若你認為孩童提供了個資給我們，請來信，我們會儘速刪除。</p>
 
 <h2>九、使用者內容與審核</h2>
-<p>塗鴉牆與每日挑戰上的作品是其他玩家畫的。我們對冒犯、騷擾或不當內容<strong>零容忍</strong>：
+<p>塗鴉牆上的作品是其他玩家畫的。我們對冒犯、騷擾或不當內容<strong>零容忍</strong>：
 每張作品都可以「檢舉」，你也可以「封鎖」某位玩家——封鎖後你不會再看到他的任何作品。
 我們會處理檢舉、移除違規內容並停用該帳號。</p>
 
@@ -146,7 +147,7 @@
 <!-- ===================== ENGLISH ===================== -->
 <div class="en">
 <h1>Drawverse Privacy Policy</h1>
-<p class="meta">Last updated: 23 September 2026 · Applies to the iOS app “Drawverse”</p>
+<p class="meta">Last updated: 2 October 2026 · Applies to the iOS app “Drawverse”</p>
 
 <div class="card">
   <strong>In one sentence:</strong> Drawverse requires no sign-up, asks for no name or email, shows no ads,
@@ -164,7 +165,9 @@ is required. It is a random identifier used to remember your artwork, score, and
 <ul>
   <li><strong>Nickname</strong> — a display name you choose, shown on scoreboards and in rooms. Please do not use your real name.</li>
   <li><strong>Drawings and guesses</strong> — the strokes you draw and the text you type when guessing. Artwork published to the
-      community wall or daily challenge is visible to other players.</li>
+      community wall is visible to other players. During a guessing game or a Drawing PK match your
+      <strong>in-progress</strong> drawing is also relayed live to the other players in the room (as a thumbnail in Drawing PK,
+      blurred for anyone ahead of you). Those live frames are not kept once the match ends.</li>
   <li><strong>Topics you write</strong> — in a guessing-game lobby you may submit one topic. Others cannot see its text beforehand
       (only that you have submitted one); once that round starts it is shown like any other topic, and the author is named at the reveal.</li>
   <li><strong>Reactions</strong> — emoji you tap while spectating are relayed live to the player drawing and are not stored.</li>
@@ -174,11 +177,11 @@ is required. It is a random identifier used to remember your artwork, score, and
 
 <h3>Gameplay records</h3>
 <ul>
-  <li>Level, XP, completed daily challenges and match results.</li>
+  <li>Level, XP and match results.</li>
   <li><strong>A daily match counter.</strong> Free players have a daily limit on guessing games and Drawing PK, so we record
       your anonymous account id, the date, the mode, and how many matches you have played that day. Keeping it on the server is
       what stops a reinstall from resetting the count. Those four fields are all it holds — nothing about what you drew.
-      With Pro there is no limit and no counter is sent.</li>
+      With Drawverse Plus there is no limit and no counter is sent.</li>
   <li>Basic in-house usage events (e.g. which mode was opened) to understand which modes players enjoy.</li>
 </ul>
 
@@ -210,23 +213,21 @@ is required. It is a random identifier used to remember your artwork, score, and
 </ul>
 
 <h2>4. How AI processes your drawings</h2>
-<p>To score your drawings, to recognise what you drew in “Feed the Monster” and “Drawing PK”, to judge how closely your COPYCAT
-attempt matches, to generate game prompts, and to produce the daily example artwork, the app sends <strong>the image of that drawing and the prompt word for the day</strong> to Google’s
+<p>To recognise what you drew in “Feed the Monster” and “Drawing PK”, to judge how closely your COPYCAT
+attempt matches, and to generate game prompts, the app sends <strong>the image of that drawing and the prompt word for that round</strong> to Google’s
 generative AI service (the Gemini API).</p>
 <p><strong>Drawing PK</strong> works differently in one respect: while a match is running your <em>in-progress</em> drawing is sent
-<strong>repeatedly</strong> — roughly 0.4 seconds after you lift the pen, and at most once every 2.5 seconds — because the game is timed
-by how soon the AI can recognise what you are drawing. It still sends only the image and the prompt, and stops when the round ends.</p>
+<strong>repeatedly</strong> — roughly 0.35 seconds after you lift the pen, at least every 1.5 seconds if you keep drawing without pausing,
+and never more often than once per second — because the game advances as soon as the AI recognises what you are drawing.
+It still sends only the image and the prompt, and stops when that prompt is cleared.</p>
 <ul>
   <li>Only <strong>the image and the prompt</strong> are sent. Your nickname, account ID and anything else that
       could identify you are not.</li>
-  <li>It is used only for scoring, recognition and generating example art — never for advertising or profiling.</li>
+  <li>It is used only for recognition and prompt generation — never for advertising or profiling.</li>
   <li>That service’s handling of the data is additionally governed by
       <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google’s privacy policy</a> and API terms.</li>
   <li><strong>Nearby play uses no AI at all</strong>; that data never leaves your devices.</li>
 </ul>
-<p>Images labelled “AI 生成” on the community wall are example pieces drawn by AI from the day’s prompt.
-They are not any player’s work.</p>
-
 <h2>5. Subscription (Drawverse Plus)</h2>
 <p>Drawverse Plus is an auto-renewing monthly in-app subscription (NT$90 per month).
 <strong>Payment is handled entirely by Apple</strong> — we never see or store your card details, Apple ID or any
