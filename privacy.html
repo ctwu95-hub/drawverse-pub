@@ -29,7 +29,7 @@
 <body><div class="wrap">
 
 <h1>Drawverse 隱私政策</h1>
-<p class="meta">最後更新：2026 年 10 月 2 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
+<p class="meta">最後更新：2026 年 10 月 6 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
 
 <div class="card">
   <strong>一句話版本：</strong>Drawverse 不需要你註冊、不要你的姓名或 email、沒有廣告、不做追蹤、不賣資料。
@@ -47,9 +47,10 @@
   <li><strong>暱稱</strong>：你自己取的顯示名稱，會出現在計分板與房間名單。請不要使用真實姓名或個資。</li>
   <li><strong>畫作與猜題文字</strong>：你在遊戲中畫的筆畫、以及猜題輸入的文字。發布到「塗鴉牆」的作品其他玩家看得到。
       在「你畫我猜」與「畫畫PK」的對局進行中，你<strong>畫到一半</strong>的畫面也會即時傳給同房的人看
-      （「畫畫PK」是縮圖，且進度超前你的人會被打馬賽克）；對局結束後這些即時畫面就不再保留。</li>
-  <li><strong>你出的題目</strong>：在「你畫我猜」的大廳可以自己出一題。開始前其他人看不到題目內容（只看得到你已經出好了）；
-      那一回合開始後，題目會像一般題目一樣顯示給該猜的人，揭曉時也會公開「這題是誰出的」。</li>
+      （「畫畫PK」是縮圖，且進度超前你的人會被打馬賽克）；對局結束後這些即時畫面就不再保留。<br>
+      <strong>畫畫PK 的結算畫廊</strong>：一場打完之後，同房的人看得到彼此「通過」的那幾張畫
+      （沒通過與跳過的不顯示）。這些筆畫本來就存在伺服器上供結算使用，畫廊只是把<strong>同一個房間內</strong>的人
+      開放互看；不會發布到塗鴉牆，也沒有對外連結。畫廊上的每一張都可以檢舉，也可以封鎖對方。</li>
   <li><strong>表情反應</strong>：觀戰時按的表情會即時傳給正在畫的人，不會存下來。</li>
   <li><strong>自訂大頭貼（選填）</strong>：你可以從相簿挑一張照片當頭像。我們只會取得<em>你選的那一張</em>——App 不會讀取你的整個相簿。</li>
 </ul>
@@ -90,12 +91,15 @@
 </ul>
 
 <h2>四、AI 怎麼處理你的畫</h2>
-<p>為了辨識「餵怪獸」與「畫畫 PK」裡你畫了什麼、比對 COPYCAT 畫得像不像，以及產生遊戲題目，本 App 會把
+<p>為了辨識「餵怪獸」與「畫畫 PK」裡你畫了什麼，本 App 會把
 <strong>那張畫的圖檔與那一題的題目文字</strong>傳送給 Google 的生成式 AI 服務（Gemini API）處理。</p>
+<p>另外，遊戲的<strong>題庫</strong>也是由同一個服務每天產生的（會搭配 Google 搜尋抓當天的熱門話題）。
+這一段<strong>完全不涉及你的資料</strong>——純粹是伺服器在產生題目，沒有送出任何玩家的畫或文字。</p>
 <p>其中「<strong>畫畫 PK</strong>」比較特別：比賽進行中，你畫到一半的圖會<strong>持續</strong>送出去辨識
 （放開筆之後約 0.35 秒送一次，連續畫不停時至少每 1.5 秒一次，兩次之間最短間隔 1 秒），
 這樣才知道 AI 什麼時候認得出你畫的東西、並以此決定何時換下一題。
-送的一樣只有圖與題目，那一題結束就不再送。</p>
+送的一樣只有圖與題目，那一題結束就不再送。
+AI 的判讀結果（「AI 看成：○○」）只會回給<strong>你自己</strong>的畫面，不會傳給同房的其他人。</p>
 <ul>
   <li>傳過去的<strong>只有圖與題目</strong>。不會傳送你的暱稱、帳號編號或任何能辨識你的資料。</li>
   <li>用途只有辨識與出題，不會用來投放廣告或個人化行銷。</li>
@@ -114,7 +118,7 @@
 <p>線上資料存放在 <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabase</a>（我們的資料處理商）所託管的資料庫與儲存空間。
 資料在傳輸過程中以 HTTPS/TLS 加密。我們只保留讓服務運作所需的時間；你刪除資料後即從資料庫移除。</p>
 <p>另有一家次處理商：<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google</a>（Gemini API），
-僅用於第四章所述的評分、辨識與示範圖生成。除此之外沒有其他第三方會拿到你的資料。</p>
+僅用於第四章所述的辨識與題目產生。除此之外沒有其他第三方會拿到你的資料。</p>
 
 <h2>七、你的權利：隨時刪除</h2>
 <div class="card">
@@ -133,9 +137,14 @@
 若你認為孩童提供了個資給我們，請來信，我們會儘速刪除。</p>
 
 <h2>九、使用者內容與審核</h2>
-<p>塗鴉牆上的作品是其他玩家畫的。我們對冒犯、騷擾或不當內容<strong>零容忍</strong>：
-每張作品都可以「檢舉」，你也可以「封鎖」某位玩家——封鎖後你不會再看到他的任何作品。
-我們會處理檢舉、移除違規內容並停用該帳號。</p>
+<p>塗鴉牆上的作品、以及畫畫PK 結算畫廊裡的畫，都是其他玩家畫的。我們對冒犯、騷擾或不當內容<strong>零容忍</strong>：</p>
+<ul>
+  <li><strong>路人的塗鴉牆</strong>：打開任何一個塗鴉牆，右上角的「⋯」→「這張有問題」或「封鎖這個人」。</li>
+  <li><strong>畫畫PK 結算畫廊</strong>：每一張別人的縮圖右上角都有一顆小旗子，按下去就是檢舉或封鎖。</li>
+  <li>封鎖之後，那個人的作品不會再出現在任何畫面上；要解除到「設定 → 封鎖名單」。</li>
+  <li>同一個對象被多位不同的使用者檢舉時，系統會先自動把它下架，再由我們人工審視。</li>
+</ul>
+<p>我們會在 24 小時內處理檢舉、移除違規內容並停用該帳號。</p>
 
 <h2>十、政策變更</h2>
 <p>若本政策有重大變更，我們會更新本頁上方的日期，並在 App 內適當提示。</p>
@@ -147,7 +156,7 @@
 <!-- ===================== ENGLISH ===================== -->
 <div class="en">
 <h1>Drawverse Privacy Policy</h1>
-<p class="meta">Last updated: 2 October 2026 · Applies to the iOS app “Drawverse”</p>
+<p class="meta">Last updated: 6 October 2026 · Applies to the iOS app “Drawverse”</p>
 
 <div class="card">
   <strong>In one sentence:</strong> Drawverse requires no sign-up, asks for no name or email, shows no ads,
@@ -167,9 +176,11 @@ is required. It is a random identifier used to remember your artwork, score, and
   <li><strong>Drawings and guesses</strong> — the strokes you draw and the text you type when guessing. Artwork published to the
       community wall is visible to other players. During a guessing game or a Drawing PK match your
       <strong>in-progress</strong> drawing is also relayed live to the other players in the room (as a thumbnail in Drawing PK,
-      blurred for anyone ahead of you). Those live frames are not kept once the match ends.</li>
-  <li><strong>Topics you write</strong> — in a guessing-game lobby you may submit one topic. Others cannot see its text beforehand
-      (only that you have submitted one); once that round starts it is shown like any other topic, and the author is named at the reveal.</li>
+      blurred for anyone ahead of you). Those live frames are not kept once the match ends.<br>
+      <strong>The Drawing PK results gallery</strong>: once a match ends, everyone in that room can see the drawings each
+      player <em>cleared</em> (failed and skipped prompts are not shown). Those strokes were already stored on the server for
+      scoring; the gallery simply lets the people <strong>in that one room</strong> see each other’s. Nothing is published to
+      the community wall and there is no public link. Every drawing there can be reported, and its author blocked.</li>
   <li><strong>Reactions</strong> — emoji you tap while spectating are relayed live to the player drawing and are not stored.</li>
   <li><strong>Custom avatar (optional)</strong> — you may pick one photo from your library. We receive
       <em>only the photo you select</em>; the app never gains access to your whole photo library.</li>
@@ -213,13 +224,17 @@ is required. It is a random identifier used to remember your artwork, score, and
 </ul>
 
 <h2>4. How AI processes your drawings</h2>
-<p>To recognise what you drew in “Feed the Monster” and “Drawing PK”, to judge how closely your COPYCAT
-attempt matches, and to generate game prompts, the app sends <strong>the image of that drawing and the prompt word for that round</strong> to Google’s
-generative AI service (the Gemini API).</p>
+<p>To recognise what you drew in “Feed the Monster” and “Drawing PK”, the app sends <strong>the image of that drawing and
+the prompt word for that round</strong> to Google’s generative AI service (the Gemini API).</p>
+<p>The game’s <strong>prompt bank</strong> is also generated daily by that same service (using Google Search to pick up current
+topics). That step involves <strong>none of your data</strong> — it is our server generating prompts, with no player drawing or
+text sent.</p>
 <p><strong>Drawing PK</strong> works differently in one respect: while a match is running your <em>in-progress</em> drawing is sent
 <strong>repeatedly</strong> — roughly 0.35 seconds after you lift the pen, at least every 1.5 seconds if you keep drawing without pausing,
 and never more often than once per second — because the game advances as soon as the AI recognises what you are drawing.
-It still sends only the image and the prompt, and stops when that prompt is cleared.</p>
+It still sends only the image and the prompt, and stops when that prompt is cleared.
+What the AI thinks it sees (“AI 看成: …”) is shown only on <strong>your own</strong> screen and is not sent to the other
+players in the room.</p>
 <ul>
   <li>Only <strong>the image and the prompt</strong> are sent. Your nickname, account ID and anything else that
       could identify you are not.</li>
@@ -239,7 +254,7 @@ subscription status. Cancel under Settings → your Apple ID → Subscriptions. 
 <p>Online data is hosted on <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabase</a>, our data processor.
 Data is encrypted in transit using HTTPS/TLS. We keep it only as long as needed to operate the service.</p>
 <p>There is one further sub-processor: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google</a>
-(Gemini API), used only for the scoring, recognition and example-art generation described in section 4.
+(Gemini API), used only for the recognition and prompt generation described in section 4.
 No other third party receives your data.</p>
 
 <h2>7. Your rights: delete at any time</h2>
@@ -253,9 +268,15 @@ data from children. Because the game shows content drawn by other players, we re
 children and encourage use of the in-app Report and Block tools.</p>
 
 <h2>9. User content and moderation</h2>
-<p>We have <strong>zero tolerance</strong> for objectionable or abusive content. Every piece of artwork can be reported, and you can
-block any player — once blocked you will never see their content again. We act on reports, remove violating content and
-disable offending accounts.</p>
+<p>We have <strong>zero tolerance</strong> for objectionable or abusive content, whether on the community wall or in a
+Drawing PK results gallery.</p>
+<ul>
+  <li><strong>Community wall</strong> — open any wall and use the “⋯” menu at the top right: Report, or Block this person.</li>
+  <li><strong>Drawing PK results gallery</strong> — every thumbnail by another player carries a small flag button for the same two actions.</li>
+  <li>Once blocked, that person’s content never appears anywhere again; undo it under Settings → Blocked list.</li>
+  <li>Content reported by several different users is hidden automatically before we review it by hand.</li>
+</ul>
+<p>We act on reports within 24 hours, remove violating content and disable offending accounts.</p>
 
 <h2>10. Changes</h2>
 <p>If this policy changes materially we will update the date at the top of this page.</p>
