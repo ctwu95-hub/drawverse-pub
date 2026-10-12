@@ -29,7 +29,7 @@
 <body><div class="wrap">
 
 <h1>Drawverse 隱私政策</h1>
-<p class="meta">最後更新：2026 年 10 月 6 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
+<p class="meta">最後更新：2026 年 10 月 12 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
 
 <div class="card">
   <strong>一句話版本：</strong>Drawverse 不需要你註冊、不要你的姓名或 email、沒有廣告、不做追蹤、不賣資料。
@@ -61,6 +61,11 @@
   <li><strong>每日場次計數</strong>：免費玩家的「你畫我猜／畫畫PK」每天有場次上限，所以我們會記下
       「你的匿名帳號編號、日期、模式、今天玩了幾場」。記在伺服器是為了讓重裝 App 不會直接把次數歸零。
       只有這四個欄位，不含你畫了什麼。訂閱 Drawverse Plus 就不受上限限制，也不會再送出這筆計數。</li>
+  <li><strong>網路區段的單向雜湊</strong>：房間列表上有一個「同網路」的小標記，讓你看得出哪幾間房
+      和你在同一個網路。為了做到這件事，開房時我們會把當下連線的<strong>網路區段</strong>
+      （IPv4 的前三段／IPv6 的前三組）加鹽後做成一段不可反推的雜湊存起來。
+      <strong>我們不保存你的 IP 位址</strong>，存的只是那段雜湊，而且它只拿來和別間房的雜湊比對相不相同。
+      這和位置無關——我們仍然不蒐集任何位置資訊。</li>
   <li>基本的使用事件（例如「開啟了哪個模式」），用來了解哪些玩法受歡迎、把遊戲做得更好。</li>
 </ul>
 
@@ -83,7 +88,15 @@
 
 <h2>三、附近連線與 iCloud</h2>
 <ul>
-  <li><strong>附近連線（本地網路）</strong>：兩種情況會用到 Apple 的 MultipeerConnectivity，直接和同一個 Wi-Fi／藍牙範圍內的裝置連線：
+  <li><strong>找附近正在等人的房間</strong>：在房間列表那一頁，App 會用 Apple 的 MultipeerConnectivity
+      在本地網路上尋找附近同樣在等人的 Drawverse 房間。
+      廣播出去的只有<strong>房號</strong>（就是印在大廳、你會唸給朋友聽的那六個字），
+      不含你的暱稱、帳號編號或任何畫作。這一段<strong>只做尋找、不會建立連線，
+      找到的結果也不會送到我們的伺服器</strong>；離開房間列表就停止。
+      <br><strong>房間列表只會顯示附近的房間</strong>，所以沒有允許「本地網路」權限的話，列表會是空的。
+      這不影響其他玩法，而且<strong>用房號一樣進得去</strong>——房號不受「附近」限制，
+      朋友把房號傳給你就能加入。</li>
+  <li><strong>附近連線（本地網路）</strong>：另外兩種情況會用到 MultipeerConnectivity，直接和同一個 Wi-Fi／藍牙範圍內的裝置連線：
       <strong>鄰近模式</strong>整場都不經過我們的伺服器；<strong>線上房間</strong>則是在大家剛好在同一個地方時，
       把「正在畫的即時筆畫」改走本地傳送（比較順、也比較省流量），其餘的遊戲資料照舊走伺服器。
       兩種都只在你們的裝置之間傳遞。系統會詢問你的「本地網路」權限。</li>
@@ -156,7 +169,7 @@ AI 的判讀結果（「AI 看成：○○」）只會回給<strong>你自己</s
 <!-- ===================== ENGLISH ===================== -->
 <div class="en">
 <h1>Drawverse Privacy Policy</h1>
-<p class="meta">Last updated: 6 October 2026 · Applies to the iOS app “Drawverse”</p>
+<p class="meta">Last updated: 12 October 2026 · Applies to the iOS app “Drawverse”</p>
 
 <div class="card">
   <strong>In one sentence:</strong> Drawverse requires no sign-up, asks for no name or email, shows no ads,
@@ -193,6 +206,11 @@ is required. It is a random identifier used to remember your artwork, score, and
       your anonymous account id, the date, the mode, and how many matches you have played that day. Keeping it on the server is
       what stops a reinstall from resetting the count. Those four fields are all it holds — nothing about what you drew.
       With Drawverse Plus there is no limit and no counter is sent.</li>
+  <li><strong>A one-way hash of your network segment.</strong> The room list shows a small “same network” marker so you can
+      tell which rooms are on the same network as you. To do that, when a room is created we store a salted, non-reversible
+      hash of the <em>network segment</em> in use at that moment (the first three parts of an IPv4 address, or the first three
+      groups of an IPv6 one). <strong>We do not store your IP address</strong> — only that hash, and only to compare it with
+      other rooms’ hashes. This is not location data; we still collect no location at all.</li>
   <li>Basic in-house usage events (e.g. which mode was opened) to understand which modes players enjoy.</li>
 </ul>
 
@@ -215,7 +233,15 @@ is required. It is a random identifier used to remember your artwork, score, and
 
 <h2>3. Nearby play and iCloud</h2>
 <ul>
-  <li><strong>Local network</strong> — Apple’s MultipeerConnectivity is used in two cases. <strong>Nearby play</strong> never touches our
+  <li><strong>Finding nearby rooms</strong> — on the room-list screen the app uses Apple’s MultipeerConnectivity to look for
+      nearby Drawverse rooms that are also waiting for players. All that is
+      broadcast is the <strong>room code</strong> — the same six characters shown in the lobby that you would read out to a
+      friend. No nickname, account ID or artwork. This step only <strong>looks</strong>: it opens no connection, and what it
+      finds is never sent to our servers. It stops when you leave the room list.
+      <br><strong>Room lists only show nearby rooms</strong>, so if you decline Local Network permission the list will be
+      empty. This does not affect any other mode, and <strong>joining with a room code still works</strong> — room codes are
+      not restricted to nearby players, so a friend can simply send you one.</li>
+  <li><strong>Local network</strong> — MultipeerConnectivity is also used in two other cases. <strong>Nearby play</strong> never touches our
       servers at all. <strong>Online rooms</strong> send live in-progress strokes peer-to-peer when everyone happens to be in the same place
       (lower latency, less data); everything else still goes through the server. In both cases that traffic stays between your devices.
       iOS will ask for Local Network permission.</li>
