@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- 這個網址是公開可及的，但沒有 token 什麼都看不到（資料全部由 token 擋著的 API 給）。 -->
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>檢舉覆核 · Drawverse</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:15px/1.65 -apple-system,"PingFang TC","Noto Sans TC",system-ui,sans-serif;
+ background:#F3E9D8;color:#25201C;padding-bottom:124px;-webkit-text-size-adjust:100%}
+.bar{background:#25201C;color:#F3E9D8;padding:12px 16px;display:flex;align-items:baseline;
+ justify-content:space-between;gap:10px}
+.bar b{font-size:16px;letter-spacing:.5px}.bar span{font-size:11.5px;opacity:.6}
+.dl{font-size:12px;padding:6px 16px;letter-spacing:.3px;color:#fff}
+.dl.hot{background:#C0392B}.dl.ok{background:#3E8E4F}
+.meta{padding:13px 16px 12px;border-bottom:1px solid #DCD0B8}
+.mrow{display:flex;gap:10px;font-size:13px;padding:2px 0}
+.mk{color:#7A7064;width:84px;flex:0 0 auto}.mv{flex:1;word-break:break-all}
+.mv.mono{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#5E5547}
+.reason{background:#FFF7E6;border:1px solid #E6D4A8;border-radius:8px;padding:9px 12px;
+ margin:11px 16px 0;font-size:13px;color:#4A4034}
+.reason b{display:block;font-size:11.5px;color:#8A7A5C;margin-bottom:2px;font-weight:600}
+.seclbl{font-size:12px;color:#7A7064;padding:15px 16px 8px;letter-spacing:.4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px;padding:0 16px}
+.card{background:#fff;border:1px solid #DCD0B8;border-radius:11px;overflow:hidden}
+.card svg{width:100%;height:auto;display:block}
+.cap{padding:7px 9px 8px;font-size:11.5px;line-height:1.5;color:#5E5547}
+.cap b{display:block;color:#25201C;font-size:12.5px}
+.acts{position:fixed;left:0;right:0;bottom:0;background:rgba(243,233,216,.97);
+ border-top:1px solid #DCD0B8;padding:11px 14px calc(14px + env(safe-area-inset-bottom));
+ display:flex;flex-direction:column;gap:8px}
+.pair{display:flex;gap:10px}
+.acts button{flex:1;font:inherit;font-size:15px;font-weight:600;border:none;border-radius:10px;
+ padding:13px 8px;color:#fff;cursor:pointer}
+.acts button:disabled{opacity:.5;cursor:default}
+.acts .okb{background:#3E8E4F}.acts .badb{background:#C0392B}
+.acts .ban{background:none;color:#8A4A3C;border:1.3px solid #C7A79E;font-weight:500;font-size:13px;padding:9px}
+.exp{font-size:11px;color:#8A8073;text-align:center}
+.pane{padding:56px 24px;text-align:center}
+.pane .big{font-size:42px}.pane b{display:block;font-size:18px;margin:14px 0 6px}
+.pane p{font-size:13px;color:#7A7064;line-height:1.85}
+code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:#E8DCC4;
+ padding:3px 6px;border-radius:4px;display:inline-block;margin-top:6px;word-break:break-all;
+ text-align:left;color:#3A332A}
+</style>
+</head>
+<body>
+<div id="app"><div class="bar"><b>檢舉覆核</b></div><div class="pane"><div class="big">⏳</div><b>讀取中…</b></div></div>
+<script>
+const API = "https://vjteyysmwyiqpnwosoeu.supabase.co/functions/v1/report-review";
+
+// 🔴 **id 和 token 都從 URL fragment 讀，不是 query string。**
+//    fragment 不會送給 GitHub 的伺服器，所以那串「能改別人 is_public 的鑰匙」
+//    不會進別人的存取紀錄。改成 ?id=&t= 等於把鑰匙交給 GitHub 存著。
+const hash = new URLSearchParams(location.hash.replace(/^#/, ""));
+const ID = hash.get("id") || "";
+const T  = hash.get("t")  || "";
+
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+/** 一筆 = 一條 polyline。圓頭圓角、實心——伺服器端的筆刷材質重現不了，這是刻意接受的。 */
+function strokesSvg(strokes, size) {
+  size = size || 300;
+  const body = (strokes || []).map((s) => {
+    const pts = (s.points || []).map((p) => (p.x * size).toFixed(1) + "," + (p.y * size).toFixed(1)).join(" ");
+    if (!pts) return "";
+    const w = Math.max(0.6, (s.width == null ? 2 : s.width) * size / 200);
+    return '<polyline points="' + pts + '" fill="none" stroke="' + esc(s.colorHex || "#2B2320")
+         + '" stroke-width="' + w.toFixed(2) + '" stroke-linecap="round" stroke-linejoin="round"/>';
+  }).join("");
+  return '<svg viewBox="0 0 ' + size + " " + size + '" role="img" aria-label="被檢舉的作品">'
+       + '<rect width="' + size + '" height="' + size + '" fill="#F3E9D8"/>' + body + "</svg>";
+}
+
+function pane(emoji, head, bodyHtml) {
+  document.getElementById("app").innerHTML =
+    '<div class="bar"><b>檢舉覆核</b></div>'
+    + '<div class="pane"><div class="big">' + emoji + '</div><b>' + esc(head) + '</b><p>' + bodyHtml + '</p></div>';
+}
+
+/** 🔴 任何「開不了」的情況都要給 SQL 退路。只說「無效」等於把人丟在半路——
+ *     檢舉還在佇列裡，而 24 小時的承諾還在跑。 */
+function sqlFallback(id) {
+  if (!id) return "";
+  return "到 Dashboard → SQL Editor：<br><code>select * from report_resolve('"
+       + esc(id) + "', 'hide', '違規');</code>";
+}
+
+async function load() {
+  if (!ID || !T) return pane("🤔", "網址不完整", "這一頁要從 Discord 通知上的「開啟覆核頁」進來。");
+  let r, d;
+  try {
+    r = await fetch(API + "?id=" + encodeURIComponent(ID) + "&t=" + encodeURIComponent(T));
+    d = await r.json();
+  } catch (e) {
+    return pane("📡", "連不上伺服器", "網路問題，重新整理試試。<br>" + sqlFallback(ID));
+  }
+  if (!d.ok) return pane("🔒", d.error || "開不了", "這一頁開不了，但檢舉還在。<br>" + sqlFallback(d.targetId || ID));
+  if (d.alreadyHandled)
+    return pane("✅", "這一筆已經處理過了",
+      "狀態：" + esc(d.status) + (d.note ? "<br>備註：" + esc(d.note) : ""));
+  render(d);
+}
+
+function render(d) {
+  const s = d.subject, hrs = d.hoursLeft;
+  const autoHidden = d.open.some((o) => o.autoHidden);
+  const cards = s.pieces.length
+    ? s.pieces.map((p) => '<div class="card">' + strokesSvg(p.strokes)
+        + '<div class="cap"><b>' + esc(p.prompt) + "</b>" + esc(p.constraint)
+        + (p.label ? " · " + esc(p.label) : "") + "</div></div>").join("")
+    : '<div class="cap">（這個對象沒有存下任何筆畫）</div>';
+
+  document.getElementById("app").innerHTML =
+    '<div class="bar"><b>檢舉覆核</b><span>' + esc(s.kind) + " · " + d.open.length + " 則待處理"
+      + (autoHidden ? " · 已自動下架" : "") + "</span></div>"
+    + '<div class="dl ' + (hrs < 0 ? "hot" : "ok") + '">⏱ 24 小時期限'
+      + (hrs < 0 ? "已超過 " + Math.abs(hrs).toFixed(1) + " 小時" : "剩 " + hrs.toFixed(1) + " 小時") + "</div>"
+    + '<div class="meta">'
+      + mrow("作者", esc(s.owner))
+      + mrow("標題", esc(s.title))
+      + (s.note ? mrow("策展人的話", esc(s.note)) : "")
+      + mrow("狀態", (s.isPublic === null ? "—" : s.isPublic ? "公開中" : "已下架")
+          + " · " + s.pieces.length + " 件"
+          + (s.updatedAt ? " · " + esc(String(s.updatedAt).slice(0, 10)) : ""))
+      + mrow("target", '<span class="mono">' + esc(d.targetType) + " / " + esc(d.targetId) + "</span>")
+    + "</div>"
+    + '<div class="reason"><b>檢舉理由（玩家填的）</b>'
+      + d.open.map((o) => esc(o.reason || "（未填）")).join("<br>") + "</div>"
+    + '<div class="seclbl">全部作品（' + s.pieces.length + "）</div>"
+    + '<div class="grid">' + cards + "</div>"
+    + '<div class="acts">'
+      + '<div class="pair">'
+        + '<button class="okb" data-d="' + (s.canHide ? "ok" : "dismiss") + '">'
+        + (s.canHide ? "誤報 · 放回" : "沒問題") + "</button>"
+        + '<button class="badb" data-d="hide">違規 · 下架</button></div>'
+      + '<button class="ban" data-d="ban">下架並停用這個帳號</button>'
+      + '<div class="exp">只有你開得了這個連結 · 72 小時後失效</div>'
+    + "</div>";
+
+  for (const b of document.querySelectorAll(".acts button")) b.onclick = () => decide(b.dataset.d, b);
+}
+
+function mrow(k, v) {
+  return '<div class="mrow"><span class="mk">' + esc(k) + '</span><span class="mv">' + v + "</span></div>";
+}
+
+async function decide(decision, btn) {
+  // ⚠️ 第二次點擊要擋掉。`report_resolve` 本身是安全的（第二次 reportsClosed 會是 0），
+  //    但連點兩下會讓畫面顯示成「之前就結過案了」，看起來像出錯。
+  for (const b of document.querySelectorAll(".acts button")) b.disabled = true;
+  btn.textContent = "處理中…";
+  let d;
+  try {
+    const r = await fetch(API + "?id=" + encodeURIComponent(ID) + "&t=" + encodeURIComponent(T), {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ decision }),
+    });
+    d = await r.json();
+  } catch (e) {
+    return pane("📡", "送不出去", "檢舉還沒結案。<br>" + sqlFallback(ID));
+  }
+  if (!d.ok) return pane("⚠️", "結案失敗", esc(d.error || "") + "<br>" + sqlFallback(ID));
+  const label = { ok: "誤報 · 已放回", hide: "違規 · 已下架",
+                  ban: "違規 · 已下架並停用帳號", dismiss: "看過沒問題" }[decision];
+  const good = decision === "ok" || decision === "dismiss";
+  pane(good ? "✅" : "🚫", label,
+    d.reportsClosed > 0
+      ? "關閉了 " + d.reportsClosed + " 則檢舉。<br>這個對象之後再被檢舉會重新進佇列。"
+      // reportsClosed = 0 ＝ 這個 target 早就處理過了，這次什麼都沒改。要講出來。
+      : "沒有待處理的檢舉——<b>這一筆之前就結過案了</b>，所以這次什麼都沒改。");
+}
+
+load();
+</script>
+</body>
+</html>
