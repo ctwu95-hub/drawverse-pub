@@ -29,7 +29,7 @@
 <body><div class="wrap">
 
 <h1>Drawverse 隱私政策</h1>
-<p class="meta">最後更新：2026 年 10 月 23 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
+<p class="meta">最後更新：2026 年 10 月 28 日 · 適用於 iOS App「Drawverse（畫到崩潰）」</p>
 
 <div class="card">
   <strong>一句話版本：</strong>Drawverse 不需要你註冊、不要你的姓名或 email、沒有廣告、不做追蹤、不賣資料。
@@ -60,7 +60,9 @@
   <li>等級、經驗值、對局結果等遊戲進度。</li>
   <li><strong>每日場次計數</strong>：免費玩家的「你畫我猜／畫畫PK」每天有場次上限，所以我們會記下
       「你的匿名帳號編號、日期、模式、今天玩了幾場」。記在伺服器是為了讓重裝 App 不會直接把次數歸零。
-      只有這四個欄位，不含你畫了什麼。訂閱 Drawverse Plus 就不受上限限制，也不會再送出這筆計數。</li>
+      另外，為了避免同一場因為重連或重開 App 被重複計算，我們會再記一列
+      「帳號編號、模式、那一場的場次編號、日期」。兩者都不含你畫了什麼。
+      訂閱 Drawverse Plus 就不受上限限制，也不會再送出這筆計數。</li>
   <li><strong>網路區段的單向雜湊</strong>：房間列表上有一個「同網路」的小標記，讓你看得出哪幾間房
       和你在同一個網路。為了做到這件事，開房時我們會把當下連線的<strong>網路區段</strong>
       （IPv4 的前三段／IPv6 的前三組）加鹽後做成一段不可反推的雜湊存起來。
@@ -96,10 +98,10 @@
       <br><strong>房間列表只會顯示附近的房間</strong>，所以沒有允許「本地網路」權限的話，列表會是空的。
       這不影響其他玩法，而且<strong>用房號一樣進得去</strong>——房號不受「附近」限制，
       朋友把房號傳給你就能加入。</li>
-  <li><strong>附近連線（本地網路）</strong>：另外兩種情況會用到 MultipeerConnectivity，直接和同一個 Wi-Fi／藍牙範圍內的裝置連線：
-      <strong>鄰近模式</strong>整場都不經過我們的伺服器；<strong>線上房間</strong>則是在大家剛好在同一個地方時，
-      把「正在畫的即時筆畫」改走本地傳送（比較順、也比較省流量），其餘的遊戲資料照舊走伺服器。
-      兩種都只在你們的裝置之間傳遞。系統會詢問你的「本地網路」權限。</li>
+  <li><strong>附近連線（本地網路）</strong>：還有一種情況會用到 MultipeerConnectivity，直接和同一個 Wi-Fi／藍牙範圍內的裝置連線：
+      大家剛好在同一個地方時，<strong>線上房間</strong>會把「正在畫的即時筆畫」改走本地傳送
+      （比較順、也比較省流量），其餘的遊戲資料照舊走伺服器。
+      這一段只在你們的裝置之間傳遞。系統會詢問你的「本地網路」權限。</li>
   <li><strong>iCloud（選用）</strong>：開啟後，你的作品會備份到<strong>你自己的</strong> iCloud 帳號，由 Apple 保管，我們無法存取。</li>
 </ul>
 
@@ -108,9 +110,10 @@
 <strong>那張畫的圖檔與那一題的題目文字</strong>傳送給 Google 的生成式 AI 服務（Gemini API）處理。</p>
 <p>另外，遊戲的<strong>題庫</strong>也是由同一個服務每天產生的（會搭配 Google 搜尋抓當天的熱門話題）。
 這一段<strong>完全不涉及你的資料</strong>——純粹是伺服器在產生題目，沒有送出任何玩家的畫或文字。</p>
-<p>其中「<strong>畫畫 PK</strong>」比較特別：比賽進行中，你畫到一半的圖會<strong>持續</strong>送出去辨識
-（放開筆之後約 0.35 秒送一次，連續畫不停時至少每 1.5 秒一次，兩次之間最短間隔 1 秒），
-這樣才知道 AI 什麼時候認得出你畫的東西、並以此決定何時換下一題。
+<p>這兩種玩法都是<strong>一邊畫一邊送</strong>，不是畫完才送一次——因為整個玩法就是要知道
+AI 什麼時候認得出你畫的東西（「畫畫 PK」用它決定何時換下一題，「餵怪獸」用它決定怪獸什麼時候吃掉你的畫）。
+「畫畫 PK」是放開筆之後約 0.35 秒送一次，連續畫不停時至少每 1.5 秒一次，兩次之間最短間隔 1 秒；
+「餵怪獸」是放開筆之後約 0.4 秒送一次，而且同時只會有一個請求在路上。
 送的一樣只有圖與題目，那一題結束就不再送。
 AI 的判讀結果（「AI 看成：○○」）只會回給<strong>你自己</strong>的畫面，不會傳給同房的其他人。</p>
 <ul>
@@ -118,7 +121,9 @@ AI 的判讀結果（「AI 看成：○○」）只會回給<strong>你自己</s
   <li>用途只有辨識與出題，不會用來投放廣告或個人化行銷。</li>
   <li>該服務對資料的處理另適用
       <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google 的隱私政策</a>與其 API 條款。</li>
-  <li><strong>鄰近模式完全不使用 AI</strong>，資料不離開你們的裝置。</li>
+  <li>除了上面說的辨識，<strong>其他地方都不會把你的畫送出去</strong>。
+      「你畫我猜」猜得對不對是伺服器拿你打的字和答案比對出來的，不經過 AI；
+      「隨性的畫」則完全不送。</li>
 </ul>
 <h2>五、訂閱（Drawverse Plus）</h2>
 <p>Drawverse Plus 是每月自動續訂的 App 內訂閱（每月 NT$90）。
@@ -176,7 +181,7 @@ AI 的判讀結果（「AI 看成：○○」）只會回給<strong>你自己</s
 <!-- ===================== ENGLISH ===================== -->
 <div class="en">
 <h1>Drawverse Privacy Policy</h1>
-<p class="meta">Last updated: 23 October 2026 · Applies to the iOS app “Drawverse”</p>
+<p class="meta">Last updated: 28 October 2026 · Applies to the iOS app “Drawverse”</p>
 
 <div class="card">
   <strong>In one sentence:</strong> Drawverse requires no sign-up, asks for no name or email, shows no ads,
@@ -211,7 +216,8 @@ is required. It is a random identifier used to remember your artwork, score, and
   <li>Level, XP and match results.</li>
   <li><strong>A daily match counter.</strong> Free players have a daily limit on guessing games and Drawing PK, so we record
       your anonymous account id, the date, the mode, and how many matches you have played that day. Keeping it on the server is
-      what stops a reinstall from resetting the count. Those four fields are all it holds — nothing about what you drew.
+      what stops a reinstall from resetting the count. We also record one row of “account id, mode, that match’s id, date”
+      so a reconnect or an app restart cannot make the same match count twice. Neither holds anything about what you drew.
       With Drawverse Plus there is no limit and no counter is sent.</li>
   <li><strong>A one-way hash of your network segment.</strong> The room list shows a small “same network” marker so you can
       tell which rooms are on the same network as you. To do that, when a room is created we store a salted, non-reversible
@@ -238,7 +244,7 @@ is required. It is a random identifier used to remember your artwork, score, and
 </ul>
 <p>We do <strong>not</strong> use your data for advertising or personalised marketing.</p>
 
-<h2>3. Nearby play and iCloud</h2>
+<h2>3. Nearby rooms, local network and iCloud</h2>
 <ul>
   <li><strong>Finding nearby rooms</strong> — on the room-list screen the app uses Apple’s MultipeerConnectivity to look for
       nearby Drawverse rooms that are also waiting for players. All that is
@@ -248,9 +254,9 @@ is required. It is a random identifier used to remember your artwork, score, and
       <br><strong>Room lists only show nearby rooms</strong>, so if you decline Local Network permission the list will be
       empty. This does not affect any other mode, and <strong>joining with a room code still works</strong> — room codes are
       not restricted to nearby players, so a friend can simply send you one.</li>
-  <li><strong>Local network</strong> — MultipeerConnectivity is also used in two other cases. <strong>Nearby play</strong> never touches our
-      servers at all. <strong>Online rooms</strong> send live in-progress strokes peer-to-peer when everyone happens to be in the same place
-      (lower latency, less data); everything else still goes through the server. In both cases that traffic stays between your devices.
+  <li><strong>Local network</strong> — MultipeerConnectivity is used in one other case. When everyone happens to be in the
+      same place, <strong>online rooms</strong> send live in-progress strokes peer-to-peer (lower latency, less data);
+      everything else still goes through the server. That traffic stays between your devices.
       iOS will ask for Local Network permission.</li>
   <li><strong>iCloud (optional)</strong> — when enabled, your artwork is backed up to <strong>your own</strong> iCloud account,
       held by Apple. We cannot access it.</li>
@@ -262,10 +268,12 @@ the prompt word for that round</strong> to Google’s generative AI service (the
 <p>The game’s <strong>prompt bank</strong> is also generated daily by that same service (using Google Search to pick up current
 topics). That step involves <strong>none of your data</strong> — it is our server generating prompts, with no player drawing or
 text sent.</p>
-<p><strong>Drawing PK</strong> works differently in one respect: while a match is running your <em>in-progress</em> drawing is sent
-<strong>repeatedly</strong> — roughly 0.35 seconds after you lift the pen, at least every 1.5 seconds if you keep drawing without pausing,
-and never more often than once per second — because the game advances as soon as the AI recognises what you are drawing.
-It still sends only the image and the prompt, and stops when that prompt is cleared.
+<p>Both modes send <strong>as you draw</strong> rather than once at the end, because the whole point is to know the moment the
+AI recognises what you are drawing — Drawing PK advances to the next prompt, and Feed the Monster has the monster eat your
+drawing. Drawing PK sends roughly 0.35 seconds after you lift the pen, at least every 1.5 seconds if you keep drawing
+without pausing, and never more often than once per second. Feed the Monster sends roughly 0.4 seconds after you lift the
+pen, with only one request in flight at a time.
+Both send only the image and the prompt, and stop when that prompt is cleared.
 What the AI thinks it sees (“AI 看成: …”) is shown only on <strong>your own</strong> screen and is not sent to the other
 players in the room.</p>
 <ul>
@@ -274,7 +282,9 @@ players in the room.</p>
   <li>It is used only for recognition and prompt generation — never for advertising or profiling.</li>
   <li>That service’s handling of the data is additionally governed by
       <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google’s privacy policy</a> and API terms.</li>
-  <li><strong>Nearby play uses no AI at all</strong>; that data never leaves your devices.</li>
+  <li>Apart from the recognition described above, <strong>nothing else sends your drawings anywhere</strong>. Whether a guess
+      is right in the guessing game is decided by our server comparing your typed text with the answer — no AI involved —
+      and free drawing is never sent at all.</li>
 </ul>
 <h2>5. Subscription (Drawverse Plus)</h2>
 <p>Drawverse Plus is an auto-renewing monthly in-app subscription (NT$90 per month).
